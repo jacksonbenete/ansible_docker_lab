@@ -1,0 +1,12 @@
+ansible.node.1 ansible_connection=docker
+ansible.node.2 ansible_connection=docker
+ansible.node.3 ansible_connection=docker
+ansible.node.4 ansible_connection=docker
+
+[debian_group]
+ansible.node.1
+ansible.node.2
+
+[alpine_group]
+ansible.node.3
+ansible.node.4
