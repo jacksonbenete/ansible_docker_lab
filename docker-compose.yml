@@ -10,7 +10,6 @@ services:
     image: ansible:controlnode
     working_dir: /playbook
     user: 'root'
-    command: sh -c "tail -F /dev/null"
     volumes:
       - ./secrets:/secrets
       - ./control_node:/playbook
