@@ -6,7 +6,7 @@ services:
     hostname: control.node
     build:
       context: dockerfile/
-      dockerfile: contro_node
+      dockerfile: control_node
     image: ansible:controlnode
     working_dir: /playbook
     user: 'root'
