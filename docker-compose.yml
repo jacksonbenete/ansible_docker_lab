@@ -13,3 +13,27 @@ services:
     command: 'tail -f /dev/null'
     volumes:
       - ./control_node:/playbook
+  node1:
+    container_name: ansible.node.1
+    hostname: ansible.node.1
+    tty: true
+    image: python:3
+    command: sh -c "tail -F /dev/null"
+    volumes:
+      - ./nodes/node1:/src
+    ports:
+      - "8081:80"
+    depends_on:
+      - control-node
+  node2:
+    container_name: ansible.node.2
+    hostname: ansible.node.2
+    tty: true
+    image: python:3
+    command: sh -c "tail -F /dev/null"
+    volumes:
+      - ./nodes/node2:/src
+    ports:
+      - "8082:80"
+    depends_on:
+      - control-node
