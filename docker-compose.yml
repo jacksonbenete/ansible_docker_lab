@@ -41,3 +41,29 @@ services:
       - "8082:80"
     depends_on:
       - control-node
+  node3:
+    container_name: ansible.node.3
+    hostname: ansible.node.3
+    tty: true
+    image: python:3-alpine
+    command: sh -c "tail -F /dev/null"
+    volumes:
+      - ./nodes/node3:/src
+      - ./secrets/id_rsa.pub:/root/.ssh/authorized_keys
+    ports:
+      - "8083:80"
+    depends_on:
+      - control-node
+  node4:
+    container_name: ansible.node.4
+    hostname: ansible.node.4
+    tty: true
+    image: python:3-alpine
+    command: sh -c "tail -F /dev/null"
+    volumes:
+      - ./nodes/node4:/src
+      - ./secrets/id_rsa.pub:/root/.ssh/authorized_keys
+    ports:
+      - "8084:80"
+    depends_on:
+      - control-node
