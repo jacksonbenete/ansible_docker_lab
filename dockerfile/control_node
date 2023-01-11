@@ -1,0 +1,5 @@
+FROM alpine
+RUN apk update \
+    && apk add python3 \
+    && apk add openssh
+ENTRYPOINT ["tail", "-f", "/dev/null"]

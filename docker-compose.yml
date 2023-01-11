@@ -1,0 +1,15 @@
+---
+version: '3'
+services:
+  control-node:
+    container_name: control.node
+    hostname: control.node
+    build:
+      context: dockerfile/
+      dockerfile: contro_node
+    image: ansible:controlnode
+    working_dir: /playbook
+    user: 'root'
+    command: 'tail -f /dev/null'
+    volumes:
+      - ./control_node:/playbook
