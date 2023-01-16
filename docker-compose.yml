@@ -15,8 +15,8 @@ services:
       - ./control_node:/playbook
       - /var/run/docker.sock:/var/run/docker.sock:ro
   node1:
-    container_name: ansible.node.1
-    hostname: ansible.node.1
+    container_name: node1
+    hostname: node1
     tty: true
     image: python:3
     command: sh -c "tail -F /dev/null"
@@ -28,8 +28,8 @@ services:
     depends_on:
       - control-node
   node2:
-    container_name: ansible.node.2
-    hostname: ansible.node.2
+    container_name: node2
+    hostname: node2
     tty: true
     image: python:3
     command: sh -c "tail -F /dev/null"
@@ -41,8 +41,8 @@ services:
     depends_on:
       - control-node
   node3:
-    container_name: ansible.node.3
-    hostname: ansible.node.3
+    container_name: node3
+    hostname: node3
     tty: true
     image: python:3-alpine
     command: sh -c "tail -F /dev/null"
@@ -54,8 +54,8 @@ services:
     depends_on:
       - control-node
   node4:
-    container_name: ansible.node.4
-    hostname: ansible.node.4
+    container_name: node4
+    hostname: node4
     tty: true
     image: python:3-alpine
     command: sh -c "tail -F /dev/null"
