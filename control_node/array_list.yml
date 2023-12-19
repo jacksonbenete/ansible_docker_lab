@@ -1,0 +1,24 @@
+---
+- name: Play to run tasks for handling string as array
+  hosts: node1
+  tasks:
+    - name: print received parameters
+      debug:
+        var: file_name
+      when: file_name
+
+#    - name: remove spaces
+#      set_fact:
+#        comma_separated_list: "{{ file_name | replace(' ', '') }}"
+#      when: file_name
+
+    - name: split parameters on comma
+      block:
+        - set_fact:
+            file_list: "{{ file_name.split(',') }}"
+        - debug:
+            var: file_list
+
+    - name: show file_list length
+      debug:
+        msg: "{{ file_list | length }}"

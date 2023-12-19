@@ -1,0 +1,11 @@
+---
+- name: Play to awk process out of cmd return
+  hosts: debian_group
+  tasks:
+  - name: do cmd/fetch file
+    shell: cat /src/instance_groupid_list.txt | awk '{ gsub(/:$/, "", $1); print $1 }'
+    register: process_list
+  - name: debug
+    debug:
+      msg: "{{ item }}"
+    with_list: "{{process_list.stdout_lines}}"

@@ -1,0 +1,6 @@
+---
+- name: "This a first layer step"
+  debug:
+    msg: "This uses variable level_a: {{ level_a }}"
+- name: "Add layer two"
+  include_tasks: step_a_a.yml

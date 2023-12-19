@@ -21,7 +21,7 @@ services:
     image: python:3
     command: sh -c "tail -F /dev/null"
     volumes:
-      - ./nodes/node1:/src
+      - ./nodes:/src
       - ./secrets/id_rsa.pub:/root/.ssh/authorized_keys
     ports:
       - "8081:80"
@@ -34,7 +34,7 @@ services:
     image: python:3
     command: sh -c "tail -F /dev/null"
     volumes:
-      - ./nodes/node2:/src
+      - ./nodes:/src
       - ./secrets/id_rsa.pub:/root/.ssh/authorized_keys
     ports:
       - "8082:80"
@@ -47,7 +47,7 @@ services:
     image: python:3-alpine
     command: sh -c "tail -F /dev/null"
     volumes:
-      - ./nodes/node3:/src
+      - ./nodes:/src
       - ./secrets/id_rsa.pub:/root/.ssh/authorized_keys
     ports:
       - "8083:80"
@@ -60,7 +60,7 @@ services:
     image: python:3-alpine
     command: sh -c "tail -F /dev/null"
     volumes:
-      - ./nodes/node4:/src
+      - ./nodes:/src
       - ./secrets/id_rsa.pub:/root/.ssh/authorized_keys
     ports:
       - "8084:80"

@@ -1,0 +1,2 @@
+some_dict:
+  key_for_node2: "should be appended"

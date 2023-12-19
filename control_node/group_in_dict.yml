@@ -1,0 +1,30 @@
+---
+- name: Run task to find field in dict
+  hosts: node1
+  tasks:
+    - name: "echo var"
+      debug:
+        var: hzn_servers
+
+    - name: "find field"
+      block:
+        - set_fact:
+            process_list: []
+        - set_fact:
+            process_list: "{{ process_list + [hzn_servers[item.key]['processId']] }}"
+          loop: "{{ lookup('dict', hzn_servers) }}"
+          when: hzn_servers[item.key]['package'] == 'FIX-LTQSW' and process_list is defined
+
+    - name: "echo var"
+      debug:
+        var: process_list
+      when:
+        process_list is defined and
+        process_list
+
+    - name: "loop over processes"
+      debug:
+        msg: "process-number-{{ prefix }}"
+      loop: "{{ process_list }}"
+      loop_control:
+        index_var: prefix

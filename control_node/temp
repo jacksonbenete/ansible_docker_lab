@@ -1,0 +1,29 @@
+---
+- name: Run tasks and accumulate errors
+  hosts: debian_group
+  tasks:
+    - name: "[Setup] Init report collection"
+      shell: date | cat > /tmp/run_single_config_report
+
+    - name: "check space"
+      block:
+      - name: check space
+        include_tasks: check_space.yml
+      rescue:
+        - shell: echo "\n[{{ ansible_hostname }}] Check Space Failed" >> /tmp/run_single_config_report
+        - shell: echo "{{ ansible_failed_result }}" >> /tmp/run_single_config_report
+
+    - name: "check something else"
+      block:
+        - name: check something else
+          include_tasks: check_space.yml
+      rescue:
+        - shell: echo "\n[{{ ansible_hostname }}] Check Something Else Failed" >> /tmp/run_single_config_report
+        - shell: echo "{{ ansible_failed_result }}" >> /tmp/run_single_config_report
+
+    - name: "read file"
+      shell: cat /tmp/run_single_config_report
+      register: file_content
+    - name: "print"
+      debug:
+        msg: "{{ file_content }}"

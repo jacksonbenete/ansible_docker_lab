@@ -1,0 +1,20 @@
+---
+- name: Run task to find field in dict
+  hosts: node1
+  tasks:
+    - name: "echo var"
+      debug:
+        var: hzn_servers
+
+    - name: "find field"
+      set_fact:
+        hzn_server_processId: "{{ hzn_servers[item.key]['processId'] }}"
+      loop: "{{ lookup('dict', hzn_servers) }}"
+      when: hzn_servers[item.key]['configScript'] == (file_name ~ '.j2')
+
+    - name: "echo var"
+      debug:
+        var: hzn_server_processId
+      when:
+        hzn_server_processId is defined and
+        hzn_server_processId

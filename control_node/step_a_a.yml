@@ -1,0 +1,4 @@
+---
+- name: "Acessing variable from root on layer two"
+  debug:
+    msg: "This uses variable level_a_a: {{ level_a_a }}"

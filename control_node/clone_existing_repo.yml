@@ -1,0 +1,10 @@
+# ansible-playbook clone_existing_repo.yml -e vault_env=DEV
+# sforth repo on origin/master: 400808d	nov 20, 2022
+---
+- name: "[Rebuild] Clone psrv config folder"
+  hosts: node1
+  tasks:
+    - git:
+        repo: 'https://github.com/jacksonbenete/sforth.git'
+        dest: "/src/node1/Horizon/Server/environments/{{ vault_env }}-LTQSW"
+        force: true

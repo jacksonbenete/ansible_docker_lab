@@ -1,50 +1,24 @@
 ---
 - name: "[Setup] Init report collection"
   hosts: debian_group
+  vars:
+    server_status_list: {}
   tasks:
-    - set_fact:
-        server_status_list: {}
-    - name: update fact with hostname
-      vars:
-        hostnameDict:
-          - key: "{{ ansible_hostname }}"
-            value: {}
-      ansible.utils.update_fact:
-        updates:
-          - path: server_status_list["{{ ansible_hostname }}"]
-            value: {}
-      register: server_status_list
+  - name: "check space"
+    include_tasks: check_space.yml
+    register: check_space
+    ignore_errors: true
 
-- name: "check space"
-  hosts: debian_group
-  tasks:
-    - block:
-      - name: check space
-        include_tasks: check_space.yml
-      rescue:
-      - name: first rescue
-        ansible.utils.update_fact:
-          updates:
-            - path: server_status_list.check_space
-              value: "{{ ansible_failed_result  }}"
-        register: server_status_list
+  - name: "check something else"
+    block:
+      - include_tasks: check_space.yml
+    rescue:
+      register: check_something_else
 
-- name: "check something else"
-  hosts: debian_group
-  tasks:
-    - block:
-        - name: check something else
-          include_tasks: check_space.yml
-      rescue:
-        - name: first rescue
-          ansible.utils.update_fact:
-            updates:
-              - path: server_status_list.check_something_else
-                value: "{{ ansible_failed_result  }}"
-          register: server_status_list
+  - name: "print"
+    debug:
+      msg: "{{ check_space }}"
 
-- name: "print"
-  hosts: debian_group
-  tasks:
-    - debug:
-        msg: "{{ server_status_list }}"
+  - name: "print"
+    debug:
+      msg: "{{ check_something_else }}"

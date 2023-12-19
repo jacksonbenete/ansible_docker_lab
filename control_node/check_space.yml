@@ -1,0 +1,14 @@
+---
+- name: "get"
+  shell: "df -h | grep /dev/vda1 | grep -Po '\\d+(?=%)'"
+  register: space
+#
+#- name: "print"
+#  debug:
+#    msg: "space: {{ space }}"
+
+- name: "enough"
+  fail:
+    msg: "Not enough space"
+  when: "space.stdout | int >= 10"
+

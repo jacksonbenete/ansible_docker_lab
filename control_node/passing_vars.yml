@@ -1,0 +1,9 @@
+---
+- name: Run task to find field in dict
+  hosts: node1
+  tasks:
+    - name: "include step_a"
+      include_tasks: step_a.yml
+      vars:
+        level_a: 11
+        level_a_a: 32

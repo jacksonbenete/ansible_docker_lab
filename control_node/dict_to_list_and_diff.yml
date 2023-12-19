@@ -1,0 +1,23 @@
+# ansible-playbook dict_to_list_and_diff.yml -e env=uat
+---
+- name: "Diff between lists composed by dict"
+  hosts: node1
+  tasks:
+    - name: "Set blacklists"
+      set_fact:
+        uat_blacklist: ["gui", "gui-workspace-ltqsw"]
+        prd_blacklist: ["added-attributes"]
+    - name: "Transform dict keys into list"
+      set_fact:
+        list_of_keys: "{{ hzn_servers | dict2items | selectattr('value.groupId', '!=', 'FIX-LTQSW-7') | map(attribute='key') | list | difference(hostvars[inventory_hostname][env ~ '_blacklist']) }}"
+        scripts_to_install: "{{ hzn_servers | dict2items | selectattr('value.groupId', '!=', 'FIX-LTQSW-7') | selectattr('value.packageScript') | map(attribute='key') | list | difference(hostvars[inventory_hostname][env ~ '_blacklist']) }}"
+        scripts_to_configure: "{{ hzn_servers | dict2items | selectattr('value.groupId', '!=', 'FIX-LTQSW-7') | selectattr('value.configScript') | map(attribute='key') | list | difference(hostvars[inventory_hostname][env ~ '_blacklist']) }}"
+    - name: print
+      debug:
+        var: list_of_keys
+    - name: to install list
+      debug:
+        var: scripts_to_install
+    - name: to configScript list
+      debug:
+        var: scripts_to_configure

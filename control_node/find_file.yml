@@ -1,0 +1,34 @@
+# ansible-playbook find_file.yml -e file_name="foo"
+---
+- name: Play to find file
+  hosts: debian_group
+  vars:
+    execution_report: {}
+  tasks:
+#  - name: "(controller) with file tree"
+#    block:
+#    - set_fact:
+#        file_path: "{{ item.src | default('no_path') }}"
+#        process_name: "{{ item.path.split('/')[-2] }}"
+#      filetree: /playbook/
+#      when: (item.state == 'file') and (file_name in item.path.split('/'))
+#    - fail: msg="failure"
+#      when: not file_path
+#    rescue:
+#      - set_fact:
+#          execution_report: "{{ execution_report | combine({ 'find_file': '[' ~ ansible_hostname ~ '] could not find file file_name' }) }}"
+  - name: "filetree"
+    debug:
+      var: item.path.split('/')[-1]
+    with_filetree: /playbook/
+    when: (item.state == 'file') and (file_name in item.path.split('/'))
+
+  - set_fact:
+      file_list: ['foo', 'bar']
+  - name: "Compare lists and collect warnings for missing files"
+    set_fact:
+      execution_report: "{{ execution_report | combine({'warning': { item: 'Missing file: ' ~ item }}, recursive=True) }}"
+    loop: "{{file_list}}"
+    when: item != 'foo'
+  - debug:
+      var: execution_report.warning

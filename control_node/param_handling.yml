@@ -1,0 +1,24 @@
+# ansible-playbook param_handling.yml -e file_name="some.xml"
+---
+- name: Handle parameters
+  hosts: debian_group
+  tasks:
+    - name: "[Debug] Print param"
+      debug:
+        msg: "{{ file_name }}"
+      when: file_name
+
+    - name: "Extract file extension"
+      vars:
+        extension: "{{file_name.split('.') | last}}"
+      debug:
+        msg: "extension: {{ extension }}, file_name_split: {{ file_name.split('.') }}"
+      when: file_name
+
+    - name: "Print only if file extension equals pcs"
+      vars:
+        extension: file_name.split('.') | first
+      debug:
+        msg: "extension: {{ extension }}, filename: {{ file_name }}, intersect: {{ (['pcs'] | intersect(file_name.split('.'))) }}"
+      when:
+        (['pcs'] | intersect(file_name.split('.')))

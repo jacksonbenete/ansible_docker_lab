@@ -1,0 +1,305 @@
+some_dict_for_debian:
+  key_for_debian: some.template.file
+  empty_key:
+  not_mepty: not-empty
+  array: [some, array, of, strings.txt]
+
+some_dict: "{{ some_dict_for_all | combine(some_dict_for_debian) }}"
+execution_report:
+  error:
+  warning:
+
+process_list: [
+            "ADDED-ATTRIBUTES: group ids = ADDED-ATTRIBUTES",
+            "ALGO-CACHE: group ids = ALGO-CACHE",
+            "ALGO_SERVER: group ids = ALGOSERVER-AMC ALGOSERVER-AMS ALGOSERVER-MM1 ALGOSERVER-MM2 ALGOSERVER-TEO",
+            "AUDIT-SERVER: group ids = AUDIT-SERVER",
+            "CLEAN-PRODUCTS: group ids = CLEAN-PRODUCTS",
+            "COMPACT-UNIT: group ids = CU-BRN1 CU-CU1 CU-ETP1 CU-ITL1 CU-SCO1 CU-SWX1 CU-SWX2",
+            "CONTRIB: group ids = CONTRIB",
+            "DB-BROKER: group ids = DB-BROKER",
+            "DB-DROPCOPY: group ids = DB-DROPCOPY",
+            "DICT-SYNC: group ids = DICT-SYNC",
+            "EUREX-STREAM: group ids = EUREX-STREAM",
+            "EUREX-TRX: group ids = EUREX-TRX",
+            "EXCEL-IMPORTER: group ids = EXCEL-IMPORTER",
+            "EXEC-SYNC: group ids = EXEC-SYNC",
+            "EXEC-UPDATER: group ids = EXEC-UPDATER",
+            "FIX-EQUITA-SIM-DROP-COPY: group ids = FIX-EQUITA-SIM-DROP-COPY",
+            "FIX-IN-PLUGIN: group ids = FIX-IN-PLUGIN",
+            "FIX-SIX: group ids = FIX-SIX",
+            "FIX-SWISSQUOTE-TRX: group ids = SWISSQUOTE-FIX-TRX",
+            "GUI: group ids = GUI",
+            "GUI-WORKSPACE-LTQSW: group ids = GUI-WORKSPACE-LTQSW",
+            "HEDGER: group ids = HEDGER",
+            "IMS-FAST: group ids = IMS-FAST",
+            "IMS-PROXY: group ids = PROXY-FIX-IN-PROXY",
+            "INVENTORY: group ids = INVENTORY",
+            "ITD-ANY: group ids = INTERNAL_MARKET",
+            "JDBC-H2-SERVER: group ids = JDBC-H2-SERVER",
+            "JDBC-POSTGRESQL: group ids = JDBC-POSTGRESQL",
+            "LDAP-AUTHENTICATION: group ids = LDAP-AUTHENTICATION",
+            "OMS: group ids = OMS",
+            "PASSWORD-POLICY: group ids = PASSWORD-POLICY",
+            "POSITION-ARCHIVER: group ids = POSITION-ARCHIVER",
+            "POSMAN: group ids = POSMAN",
+            "PRICE-CACHE: group ids = PRICE-CACHE-1",
+            "REST-PLUGIN-REF: group ids = REST-PLUGIN-REF",
+            "REST-REF-CLIENT: group ids = REST-REF-SMARTCO",
+            "REST-SERVER: group ids = REST-SERVER",
+            "REUTERS-CONTRIB-PROVIDER: group ids = REUTERS-CONTRIB-PROVIDER",
+            "REUTERS-STREAM: group ids = REUTERS-STREAM REUTERS-STREAM-VOLUME",
+            "SAFETY: group ids = SAFETY",
+            "SCHEDULER: group ids = SCHEDULER",
+            "SIX-OTI: group ids = SIX-OTI",
+            "SIX-QTI-TRX: group ids = SIX-QTI-ETP SIX-QTI-MM SIX-QTI-TRX",
+            "SIX-STREAM: group ids = SIX-STREAM",
+            "SWISSQUOTE-FIX-MD: group ids = SWISSQUOTE-FIX-MD",
+            "USS-JDBC: group ids = USS-JDBC-2",
+            "USS-MM-STAT-LIGHT: group ids = USS-MM-STAT-LIGHT",
+            "USS-MW: group ids = USS-MW",
+            "USS-TRX-RULES: group ids = USS-TRX-RULES"
+        ]
+
+# dictionary
+hzn_servers:
+  added-attributes:
+    package: ADDED-ATTRIBUTES
+    groupId: ADDED-ATTRIBUTES
+    processId:
+    instanceId:
+    unitId:
+    packageScript: added-attributes.pcs.j2
+    configScript:
+    config:
+      xml: []
+  agent-backup:
+    package:
+    groupId:
+    processId: some-id
+    instanceId:
+    unitId:
+    packageScript:
+    configScript: agent-backup.pcs.j2
+    config:
+     xml: []
+  fix-citadel-ltqsw:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-CITADEL-LTQSW
+    name: FIX-CITADEL-LTQSW
+    instanceId:
+    unitId:
+    packageScript:
+    configScript:
+    config:
+      xml: []
+  fix-cs-der:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-CS-LTQSW-DERIVATIVES
+    name: FIX-CS-LTQSW-DERIVATIVES
+    instanceId: fix-creditsuisse-derivatives-1
+    unitId:
+    packageScript:
+    configScript: fix-cs-derivatives.pcs.j2
+    config:
+      xml: [FIX-CS-DER.xml]
+  fix-cs-equ:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-CS-LTQSW-EQUITIES
+    name: FIX-CS-LTQSW-EQUITIES
+    instanceId: fix-creditsuisse-equities-1
+    unitId:
+    packageScript:
+    configScript: fix-cs-equities.pcs.j2
+    config:
+      xml: [FIX-CS-EQU.xml]
+  fix-gs-equ:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-GOLDMAN-SACHS-LTQSW-EQUITIES
+    name: FIX-GOLDMAN-SACHS-LTQSW-EQUITIES
+    instanceId: fix-goldmansachs-equities-1
+    unitId:
+    packageScript:
+    configScript: fix-gs-equities.pcs.j2
+    config:
+      xml: [FIX-GS-EQU.xml]
+  fix-jpm-ltqsw-equ:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-JPM-LTQSW-EQUITIES
+    name: FIX-JPM-LTQSW-EQUITIES
+    instanceId:
+    unitId:
+    packageScript:
+    configScript:
+    config:
+      xml: [ ]
+  fix-ltqsw:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-LTQSW
+    name: FIX-LTQSW
+    instanceId:
+    unitId:
+    packageScript: fix-ltqsw.pcs.j2
+    configScript:
+    config:
+      xml: [ ]
+  fix-bbg-emsx:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-LTQSW-BBG-EMSX-DC
+    name: FIX-LTQSW-BBG-EMSX-DC
+    instanceId: fix-dropcopy-bloomberg-emsx-1
+    unitId:
+    packageScript:
+    configScript: fix-bbrg-emsx.pcs.j2
+    config:
+      xml: [FIX-BBG-EMSX.xml]
+  fix-bbg-fx:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-LTQSW-BBG-FX-DC
+    name: FIX-LTQSW-BBG-FX-DC
+    instanceId: fix-dropcopy-bloomberg-fx-1
+    unitId:
+    packageScript:
+    configScript: fix-bbrg-fx.pcs.j2
+    config:
+      xml: [FIX-BBG-FX.xml]
+  fix-bbg-tsox:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-LTQSW-BBG-TSOX-DC
+    name: FIX-LTQSW-BBG-TSOX-DC
+    instanceId: fix-dropcopy-bloomberg-tsox-1
+    unitId:
+    packageScript:
+    configScript: fix-bbg-tsox.pcs.j2
+    config:
+      xml: [FIX-BBG-TSOX.xml]
+  fix-cs-pt:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-LTQSW-CS-PRIMETRADE-DC
+    name: FIX-LTQSW-CS-PRIMETRADE-DC
+    instanceId: imc-creditsuisse-primetrade-drop-copy
+    unitId:
+    packageScript:
+    configScript: fix-cs-pt.pcs.j2
+    config:
+      xml: [FIX-CS-PT.xml]
+  fix-icf:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-LTQSW-ICF-QUOTE
+    name: FIX-LTQSW-ICF-QUOTE
+    instanceId:
+    unitId:
+    packageScript:
+    configScript: fix-icf.pcs.j2
+    config:
+      xml: [ ]
+  fix-ms-der:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-MORGAN-STANLEY-DERIVATIVES-LTQSW
+    name: FIX-MORGAN-STANLEY-DERIVATIVES-LTQSW
+    instanceId:
+    unitId:
+    packageScript:
+    configScript: fix-ms-der.pcs.j2
+    config:
+      xml: [ ]
+  fix-ms-equ:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-MORGAN-STANLEY-EQUITIES-LTQSW
+    name: FIX-MORGAN-STANLEY-EQUITIES-LTQSW
+    instanceId:
+    unitId:
+    packageScript:
+    configScript: fix-ms-equ.pcs.j2
+    config:
+      xml: [ ]
+  fix-sti-six:
+    package: FIX-SIX
+    groupId: FIX-SIX
+    processId: FIX-SIX
+    name: SIX-STI
+    instanceId: swx2_sti
+    unitId:
+    packageScript: fix-sti-six.pcs.j2
+    configScript: fix-sti-six.pcs.j2
+    config:
+      xml: [FIX-SIX-STI.xml]
+  fix-tickts:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-LTQSW
+    name: FIX-LTQSW-TICKTS
+    instanceId: imc-tick-ts-fix-quote
+    unitId:
+    packageScript:
+    configScript: fix-tickts.pcs.j2
+    config:
+      xml: [ ]
+  fix-refinitiv-fx:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-REFINITIV-FX-ALL-LTQSW
+    name: FIX-REFINITIV-FX-ALL-LTQSW
+    instanceId:
+    unitId:
+    packageScript:
+    configScript:
+    config:
+      xml: [ ]
+  fix-ubs-equ:
+    package: FIX-LTQSW
+    groupId: FIX-LTQSW-7
+    processId: FIX-UBS-EQUITIES-LTQSW
+    name: FIX-UBS-EQUITIES-LTQSW
+    instanceId:
+    unitId:
+    packageScript:
+    configScript: fix-ubs-equ.pcs.j2
+    config:
+      xml: [ ]
+  fix-equita:
+    package: FIX-EQUITA-SIM-DROP-COPY
+    groupId: FIX-EQUITA-SIM-DROP-COPY
+    processId: FIX-EQUITASIM-DROP-COPY
+    name:
+    instanceId: fix-equitasim-drop-copy
+    unitId:
+    packageScript: fix-equita.pcs.j2
+    configScript: fix-equita.pcs.j2
+    config:
+      xml: [FIX-EQUITA.xml]
+  gui:
+    package: GUI
+    groupId: GUI
+    processId: GUI
+    name:
+    instanceId:
+    unitId:
+    packageScript: gui.pcs.j2
+    configScript:
+    config:
+      xml: []
+  gui-workspace-ltqsw:
+    package: GUI-WORKSPACE-LTQSW
+    groupId: GUI-WORKSPACE-LTQSW
+    processId:
+    name:
+    instanceId:
+    unitId:
+    packageScript: gui-workspace-ltqsw.pcs.j2
+    configScript:
+    config:
+      xml: []

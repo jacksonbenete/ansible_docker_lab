@@ -1,0 +1,29 @@
+---
+- name: "[Setup] Fetch metadata from hzn_servers dictionary"
+  block:
+  - set_fact:
+      process_list_name: []
+      process_list_key: []
+      process_list_config_script: []
+  - set_fact:
+      process_list_name: "{{ process_list_name + [hzn_servers[item.key]['name']] }}"
+      process_list_key: "{{ process_list_key + [item.key] }}"
+      process_list_config_script: "{{ process_list_config_script + [hzn_servers[item.key]['configScript']] }}"
+    loop: "{{ lookup('dict', hzn_servers) }}"
+    when: # TODO not execution_report.error and
+      hzn_servers[item.key]['groupId'] == groupId and
+      hzn_servers[item.key]['configScript'] # some comment
+  rescue:
+    - name: "[Rescue] Fetch metadata from hzn_servers dictionary"
+      set_fact:
+        execution_report: "{{ execution_report | combine({'error': { 'fetch_metadata': 'failed to fetch from hzn_servers dict to collect processes for groupId' ~ groupId }}, recursive=True) }}"
+- name: "[Debug] Echo lists" # Todo remove
+  block:
+    - debug:
+        var: hzn_servers
+- debug:
+    var: process_list_name
+- debug:
+    var: process_list_key
+- debug:
+    var: process_list_config_script

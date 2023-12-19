@@ -1,0 +1,28 @@
+---
+- name: Run tasks and accumulate errors and warnings
+  hosts: node1
+  tasks:
+    - name: "echo var"
+      debug:
+        var: execution_report
+
+    - name: "add errors"
+      set_fact:
+        execution_report: "{{execution_report | combine({'error': {'foo': 'bar'}}, recursive=True)}}"
+
+    - name: "add errors"
+      set_fact:
+        execution_report: "{{execution_report | combine({'error': {'x': 'y'}}, recursive=True)}}"
+
+    - name: "add warnings"
+      set_fact:
+        execution_report: "{{execution_report | combine({'warning': {'somer': 'observation'}}, recursive=True)}}"
+
+    - name: "echo var"
+      debug:
+        var: execution_report
+
+    - name: "echo errors"
+      debug:
+        var: execution_report.error
+      when: execution_report.error

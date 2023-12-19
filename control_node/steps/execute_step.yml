@@ -1,0 +1,12 @@
+---
+- name: "Execute steps/{{ execute }}"
+  block:
+    - name: "Execute steps/{{ execute }}"
+      include_tasks: "steps/{{ execute }}.yml"
+  rescue:
+    - set_fact:
+        execution_report: "{{ execution_report | combine({'error': { execute: '[' ~ ansible_hostname ~ '] ' ~ with_error }}, recursive=True) }}"
+      when: with_error is defined and with_error
+    - set_fact:
+        execution_report: "{{ execution_report | combine({'warning': { execute: with_warning }}, recursive=True) }}"
+      when: with_warning is defined and with_warning

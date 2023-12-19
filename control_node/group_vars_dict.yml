@@ -1,0 +1,6 @@
+- name: some play
+  hosts: debian_group
+  tasks:
+    - name: check global dict contents by node
+      debug:
+        msg: "{{ some_dict.empty_key | default('foo') }}"

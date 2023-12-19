@@ -1,0 +1,9 @@
+---
+- set_fact:
+    some_fact: "a"
+- set_fact:
+    some_fact: "b"
+  when:
+    groupId is defined and groupId == 'FIX-LTQSW-7'
+- debug:
+    var: some_fact

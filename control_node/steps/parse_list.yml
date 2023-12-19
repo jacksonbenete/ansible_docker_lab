@@ -1,0 +1,12 @@
+---
+- debug:
+    var: process_list
+- set_fact:
+    process_installed_list: []
+- set_fact:
+    process_installed_list: "{{ process_installed_list + [item.split(':')[0]] }}"
+  loop: "{{ process_list }}"
+- debug:
+    var: process_installed_list
+- fail:
+  when: process_name not in process_installed_list

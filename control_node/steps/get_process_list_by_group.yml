@@ -1,0 +1,40 @@
+---
+- name: "Collect list of all processes by groupId"
+  set_fact:
+    process_list_processId: []
+    process_list_config_script: []
+- set_fact:
+    process_list_processId: "{{ process_list_processId + [hzn_servers[item.key]['processId']] }}"
+    process_list_config_script: "{{ process_list_config_script + [hzn_servers[item.key]['configScript']] }}"
+  loop: "{{ lookup('dict', hzn_servers) }}"
+  when:
+    hzn_servers[item.key]['groupId'] == with_group and
+    with_entry is undefined
+
+- debug: # TODO remove
+    var: process_list_processId
+- debug: # TODO remove
+    var: process_list_config_script
+- debug: # TODO remove
+    var: with_group
+- debug: # TODO remove
+    var: with_entry
+
+- name: "Collect list of all processes by groupId that has values in some key (with_entry)"
+  set_fact:
+    process_list_processId: "{{ process_list_processId + [hzn_servers[item.key]['processId']] }}"
+    process_list_config_script: "{{ process_list_config_script + [hzn_servers[item.key]['configScript']] }}"
+  loop: "{{ lookup('dict', hzn_servers) }}"
+  when:
+    hzn_servers[item.key]['groupId'] == with_group and
+    with_entry is defined and
+    hzn_servers[item.key][with_entry] # filter processes that doesn't have an entry
+
+- debug: # TODO remove
+    var: process_list_processId
+- debug: # TODO remove
+    var: process_list_config_script
+- debug: # TODO remove
+    var: with_group
+- debug: # TODO remove
+    var: with_entry

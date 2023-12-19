@@ -1,0 +1,11 @@
+---
+- name: "Find config file for other types"
+  set_fact:
+    file_path: "{{ item.src }}"
+  with_filetree: "{{ for_path | default('../templates/' ~ for_type) }}"
+  when:
+    for_type is defined and
+    (item.state == 'file') and
+    (file_name in item.path.split('/')) or ((file_name ~ '.j2') in item.path.split('/'))
+- debug:
+    var: file_path

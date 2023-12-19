@@ -1,0 +1,12 @@
+# ansible-playbook iterate_over_dict.yml 
+---
+- name: "[Rebuild] Clone psrv config folder"
+  hosts: node1
+  tasks:
+    - name: "loop over dict hzn_servers"
+      debug:
+        msg: "key: {{ item.key }}"
+      loop: "{{ lookup('dict', hzn_servers) }}"
+      loop_control:
+        loop_var: item
+      when: "hzn_servers[item.key].groupId == 'FIX-LTQSW-7'"

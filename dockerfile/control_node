@@ -1,9 +1,14 @@
-FROM alpine
-RUN apk update \
-    && apk add python3 \
-    && apk add ansible \
-    && apk add py3-pip \
-    && apk add docker \
-    && pip install docker \
-    && apk add openssh
+FROM ubuntu:latest
+
+# bypass package installation asking for geographic area
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Moscow
+
+RUN apt-get update
+
+# docker dependencies
+RUN apt install apt-transport-https curl gnupg-agent ca-certificates software-properties-common -y
+
+RUN apt-get install -y python3 ansible python3-pip docker.io openssh-server \
+    && pip install docker
 ENTRYPOINT ["tail", "-f", "/dev/null"]
