@@ -38,9 +38,9 @@ ansible-playbook abstraction.yml -e process_name="SIX-STREAM"
 ```
 
 List of useful Plays:
-- clone_existing_repo
-- iterate_over_dict
-- dict_to_list_and_diff
+- clone_existing_repo     (used to backup the psrv state in git)
+- iterate_over_dict       (used in many horizon pipelines)
+- dict_to_list_and_diff   (used in rebuild script and algoserver-aos config)
 
 The Play should install Nginx and start the service on all nodes.
 
